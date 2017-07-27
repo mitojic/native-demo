@@ -1,0 +1,33 @@
+dependencies: \
+  /Users/alejandroperez/Documents/Projects/gigya-react-native/ios/gigyareactnative/GigyaBridge.m \
+  /Users/alejandroperez/Documents/Projects/gigya-react-native/ios/gigyareactnative/GigyaBridge.h \
+  /Users/alejandroperez/Documents/Projects/gigya-react-native/ios/build/Build/Products/Debug-iphonesimulator/include/React/RCTBridgeModule.h \
+  /Users/alejandroperez/Documents/Projects/gigya-react-native/ios/Pods/Google/Headers/module.modulemap \
+  /Users/alejandroperez/Documents/Projects/gigya-react-native/ios/build/Build/Products/Debug-iphonesimulator/include/React/RCTDefines.h \
+  /Users/alejandroperez/Documents/Projects/gigya-react-native/ios/build/Build/Products/Debug-iphonesimulator/include/React/RCTEventEmitter.h \
+  /Users/alejandroperez/Documents/Projects/gigya-react-native/ios/build/Build/Products/Debug-iphonesimulator/include/React/RCTBridge.h \
+  /Users/alejandroperez/Documents/Projects/gigya-react-native/ios/build/Build/Products/Debug-iphonesimulator/include/React/RCTBridgeDelegate.h \
+  /Users/alejandroperez/Documents/Projects/gigya-react-native/ios/build/Build/Products/Debug-iphonesimulator/include/React/RCTJavaScriptLoader.h \
+  /Users/alejandroperez/Documents/Projects/gigya-react-native/ios/build/Build/Products/Debug-iphonesimulator/include/React/RCTFrameUpdate.h \
+  /Users/alejandroperez/Documents/Projects/gigya-react-native/ios/build/Build/Products/Debug-iphonesimulator/include/React/RCTInvalidating.h \
+  /Users/alejandroperez/Documents/Projects/gigya-react-native/ios/Pods/Gigya-iOSSDK/GigyaSDK.framework/Headers/Gigya.h \
+  /Users/alejandroperez/Documents/Projects/gigya-react-native/ios/Pods/Gigya-iOSSDK/GigyaSDK.framework/Headers/GSSession.h \
+  /Users/alejandroperez/Documents/Projects/gigya-react-native/ios/Pods/Gigya-iOSSDK/GigyaSDK.framework/Headers/GSSessionInfo.h \
+  /Users/alejandroperez/Documents/Projects/gigya-react-native/ios/Pods/Gigya-iOSSDK/GigyaSDK.framework/Headers/GSObject.h \
+  /Users/alejandroperez/Documents/Projects/gigya-react-native/ios/Pods/Gigya-iOSSDK/GigyaSDK.framework/Headers/GSResponse.h \
+  /Users/alejandroperez/Documents/Projects/gigya-react-native/ios/Pods/Gigya-iOSSDK/GigyaSDK.framework/Headers/GSRequest.h \
+  /Users/alejandroperez/Documents/Projects/gigya-react-native/ios/Pods/Gigya-iOSSDK/GigyaSDK.framework/Headers/GSUser.h \
+  /Users/alejandroperez/Documents/Projects/gigya-react-native/ios/Pods/Gigya-iOSSDK/GigyaSDK.framework/Headers/GSAccount.h \
+  /Users/alejandroperez/Documents/Projects/gigya-react-native/ios/Pods/Gigya-iOSSDK/GigyaSDK.framework/Headers/GSSessionDelegate.h \
+  /Users/alejandroperez/Documents/Projects/gigya-react-native/ios/Pods/Gigya-iOSSDK/GigyaSDK.framework/Headers/GSSocializeDelegate.h \
+  /Users/alejandroperez/Documents/Projects/gigya-react-native/ios/Pods/Gigya-iOSSDK/GigyaSDK.framework/Headers/GSAccountsDelegate.h \
+  /Users/alejandroperez/Documents/Projects/gigya-react-native/ios/Pods/Gigya-iOSSDK/GigyaSDK.framework/Headers/GSWebBridge.h \
+  /Users/alejandroperez/Documents/Projects/gigya-react-native/ios/Pods/Gigya-iOSSDK/GigyaSDK.framework/Headers/GSPluginView.h \
+  /Users/alejandroperez/Documents/Projects/gigya-react-native/ios/Pods/GoogleSignIn/Frameworks/GoogleSignIn.framework/Modules/module.modulemap \
+  /Users/alejandroperez/Documents/Projects/gigya-react-native/ios/Pods/GoogleSignIn/Frameworks/GoogleSignIn.framework/Headers/GIDSignInButton.h \
+  /Users/alejandroperez/Documents/Projects/gigya-react-native/ios/Pods/GoogleSignIn/Frameworks/GoogleSignIn.framework/Headers/GIDSignIn.h \
+  /Users/alejandroperez/Documents/Projects/gigya-react-native/ios/Pods/GoogleSignIn/Frameworks/GoogleSignIn.framework/Headers/GIDProfileData.h \
+  /Users/alejandroperez/Documents/Projects/gigya-react-native/ios/Pods/GoogleSignIn/Frameworks/GoogleSignIn.framework/Headers/GIDGoogleUser.h \
+  /Users/alejandroperez/Documents/Projects/gigya-react-native/ios/Pods/GoogleSignIn/Frameworks/GoogleSignIn.framework/Headers/GIDAuthentication.h \
+  /Users/alejandroperez/Documents/Projects/gigya-react-native/ios/Pods/GoogleSignIn/Frameworks/GoogleSignIn.framework/Headers/GoogleSignIn.h \
+  /Users/alejandroperez/Documents/Projects/gigya-react-native/ios/gigyareactnative/AppDelegate.h

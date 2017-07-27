@@ -1,0 +1,6 @@
+target 'gigyareactnative' do
+  pod 'Gigya-iOSSDK'
+  pod 'FBSDKCoreKit'
+  pod 'FBSDKLoginKit'
+  pod 'Google/SignIn'
+end
