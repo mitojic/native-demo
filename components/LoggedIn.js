@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Container, Header, Content, Footer, FooterTab, Button, Icon, Text, H3 } from 'native-base';
+import { Container, Content, Footer, FooterTab, Button, Icon, Text, H3 } from 'native-base';
 import globalStyles from '../styles';
 
 const styles = {
@@ -12,7 +12,6 @@ class LoggedIn extends Component {
 
     return(
       <Container style={globalStyles.container}>
-        <Header style={globalStyles.header} />
         <Content>
           <H3 style={styles.welcome}>Welcome {account.profile.firstName}</H3>
           <H3></H3> 

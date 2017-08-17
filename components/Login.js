@@ -1,5 +1,5 @@
 import React from 'react';
-import { Container, Header, Content, Button, Icon, H3, Form, Item, Input, Text } from 'native-base';
+import { Container, Content, Button, Icon, H3, Form, Item, Input, Text } from 'native-base';
 import { Col, Row, Grid } from 'react-native-easy-grid';
 import globalStyles from '../styles';
 
@@ -13,7 +13,6 @@ const styles = {
 
 const Login = ({ onLoginPressed, onSocialLoginPressed, onScreensetPressed }) => (
   <Container style={globalStyles.container}>
-    <Header style={globalStyles.header} />
     <Content>
       <Grid>
         <Row>
