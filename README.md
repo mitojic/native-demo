@@ -2,8 +2,6 @@
 
 ## About this project
 
-TODO: Android bridge - this demo focus on iOS but the concept is similar for Android.
-
 This is a simple demo to illustrate Gigya Integration with React Native. Integration is done via [Native Modules](https://facebook.github.io/react-native/docs/native-modules-ios.html). The idea is to create a React RCTBridgeModule for Gigya's available Mobile SDKs (iOS and Android), and use this bridge to communicate between React Native (JS) and Native (SDKs).
 
 ## Requirements
@@ -41,6 +39,8 @@ Runs the [jest](https://github.com/facebook/jest) test runner on your tests.
 #### `npm run ios`
 
 Like `npm start`, but also attempts to open your app in the iOS Simulator if you're on a Mac and have it installed.
+
+Note: The iOS project is configured with CocoaPods - and calls Gigya, Facebook and Google native SDKs. Run `pod install` from terminal to install libraries.
 
 #### `npm run android`
 
