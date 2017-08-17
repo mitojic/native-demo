@@ -13,8 +13,9 @@ import com.gigya.socialize.android.GSAPI;
 import java.util.Arrays;
 import java.util.List;
 
-public class MainApplication extends Application implements ReactApplication {
+import com.facebook.FacebookSdk;
 
+public class MainApplication extends Application implements ReactApplication {
   private final ReactNativeHost mReactNativeHost = new ReactNativeHost(this) {
     @Override
     public boolean getUseDeveloperSupport() {
@@ -39,7 +40,8 @@ public class MainApplication extends Application implements ReactApplication {
   @Override
   public void onCreate() {
     super.onCreate();
-    GSAPI.getInstance().initialize(this, "3_n6HDyxNJWZ9C6j1JcQrexeRptHoiCayyzLQ0pXGd05WwXoYNaZAC83wQ2F7kCLWN", "eu1.gigya.com");
+
+    GSAPI.getInstance().initialize(this, "3_L7xm_by92yHMggImKfw4wjX5znV51SSSZ8am6bj7HZGRYUilfMfshATkdBma_wxR", "au1.gigya.com");
 
     SoLoader.init(this, /* native exopackage */ false);
   }
