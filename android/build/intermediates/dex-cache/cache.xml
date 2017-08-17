@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        is-multidex="true"
+        jar="/Users/gheerishbansoodeb/.android/build-cache/c096d5e8f5743116ea1db31c31a41bc3c55258de/output/jars/libs/internal_impl-23.0.1.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="aa92916125166649d8ad4ba3940c3dd7515596d3">
+        <dex dex="/Users/gheerishbansoodeb/Documents/gigya-react-native-master/android/app/build/intermediates/transforms/dex/debug/folders/1000/10/internal_impl-23.0.1_93ecf1ddcbff69e7e085037523e62a4e2cff54c9/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/gheerishbansoodeb/.android/build-cache/fecd624e04ed716b629cf4893d9b7ab67023fc72/output/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="c5526d30278eb171f4a1325bd6b927c9057c91f4">
+        <dex dex="/Users/gheerishbansoodeb/Documents/gigya-react-native-master/android/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_aa588f943eee3564bbf90c70557f6f5cea02115c/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/gheerishbansoodeb/.gradle/caches/modules-2/files-2.1/com.google.code.findbugs/jsr305/3.0.0/5871fb60dc68d67da54a663c3fd636a10a532948/jsr305-3.0.0.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="5871fb60dc68d67da54a663c3fd636a10a532948">
+        <dex dex="/Users/gheerishbansoodeb/Documents/gigya-react-native-master/android/app/build/intermediates/transforms/dex/debug/folders/1000/10/jsr305-3.0.0_fc5b40de1cf03060906d39106237360cbc66a1c0/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/gheerishbansoodeb/.gradle/caches/modules-2/files-2.1/javax.inject/javax.inject/1/6975da39a7040257bd51d21a231b76c915872d38/javax.inject-1.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="6975da39a7040257bd51d21a231b76c915872d38">
+        <dex dex="/Users/gheerishbansoodeb/Documents/gigya-react-native-master/android/app/build/intermediates/transforms/dex/debug/folders/1000/10/javax.inject-1_a0bf241545cafccfb28fea11294419262bc0616b/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/gheerishbansoodeb/Library/Android/sdk/extras/android/m2repository/com/android/support/support-annotations/23.0.1/support-annotations-23.0.1.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="1fce89a6428c51467090d7f424e4c9c3dbd55f7e">
+        <dex dex="/Users/gheerishbansoodeb/Documents/gigya-react-native-master/android/app/build/intermediates/transforms/dex/debug/folders/1000/10/support-annotations-23.0.1_ec8b55c9e693f0d1dc3b5bb1c9a96b0a51c88747/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/gheerishbansoodeb/.android/build-cache/fa1a5f1848470e9d94a9bc56f3310c3c5ddf4b6c/output/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="050f688115ea65a0292d8483a6ffe6bcdab1e2ef">
+        <dex dex="/Users/gheerishbansoodeb/Documents/gigya-react-native-master/android/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_d2bc426eb2c9db5b96d763942dadce573e91bb34/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/gheerishbansoodeb/.gradle/caches/modules-2/files-2.1/com.squareup.okio/okio/1.13.0/a9283170b7305c8d92d25aff02a6ab7e45d06cbe/okio-1.13.0.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="a9283170b7305c8d92d25aff02a6ab7e45d06cbe">
+        <dex dex="/Users/gheerishbansoodeb/Documents/gigya-react-native-master/android/app/build/intermediates/transforms/dex/debug/folders/1000/10/okio-1.13.0_3f880e5663d0a98a381466a6b750f0749bcf7cf6/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/gheerishbansoodeb/.gradle/caches/modules-2/files-2.1/com.squareup.okhttp3/okhttp-urlconnection/3.6.0/3f9b16b774f2c36cfd86dd2053d0b3059531dacc/okhttp-urlconnection-3.6.0.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="3f9b16b774f2c36cfd86dd2053d0b3059531dacc">
+        <dex dex="/Users/gheerishbansoodeb/Documents/gigya-react-native-master/android/app/build/intermediates/transforms/dex/debug/folders/1000/10/okhttp-urlconnection-3.6.0_2f776ef1792010e34ef122ba6b5fd6e907e32817/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/gheerishbansoodeb/.gradle/caches/modules-2/files-2.1/com.facebook.fbui.textlayoutbuilder/staticlayout-proxy/1.0/f162442a19fff13995fbd51ba414d9ee05579080/staticlayout-proxy-1.0.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="f162442a19fff13995fbd51ba414d9ee05579080">
+        <dex dex="/Users/gheerishbansoodeb/Documents/gigya-react-native-master/android/app/build/intermediates/transforms/dex/debug/folders/1000/10/staticlayout-proxy-1.0_f22560ec19600bcdc54fca56715e405c2361f3de/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/gheerishbansoodeb/.android/build-cache/7fd676b3dc226e6461c1fefbf7a1780f5e050fab/output/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="5a61f17cd72e20aa4323cbf5f909b7c609619275">
+        <dex dex="/Users/gheerishbansoodeb/Documents/gigya-react-native-master/android/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_eb9f625381ee435b7f775986c8611f65e1bb538b/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/gheerishbansoodeb/.android/build-cache/fecd624e04ed716b629cf4893d9b7ab67023fc72/output/jars/libs/infer-annotations-4.0.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="9809e90be788acdb479b2b44e2112f3295a03068">
+        <dex dex="/Users/gheerishbansoodeb/Documents/gigya-react-native-master/android/app/build/intermediates/transforms/dex/debug/folders/1000/10/infer-annotations-4.0_dc9fff4f3367fdb639653a3333059c4d486e8978/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/gheerishbansoodeb/.android/build-cache/bea1e2261be4fe95103db2e4f96e92501cddffee/output/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="ba9b39366b723ccff6359d1117332968e98a4aca">
+        <dex dex="/Users/gheerishbansoodeb/Documents/gigya-react-native-master/android/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_ba8db4e8ab0ff28ec953c904eec2bc6c99a19139/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/gheerishbansoodeb/.android/build-cache/831875b3f9acda1af73669560480ddc59a7b314d/output/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="8f615bca00639150c9eb6175d4b5471193f70794">
+        <dex dex="/Users/gheerishbansoodeb/Documents/gigya-react-native-master/android/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_6dc744b3f515452d9d4fa822656d42c1111da1dd/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/gheerishbansoodeb/.android/build-cache/595314bedbe6f3896a9d6848faa9621142c31495/output/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="d86429b0f0b3f3cafbeb78dda1b9d89119ccb05d">
+        <dex dex="/Users/gheerishbansoodeb/Documents/gigya-react-native-master/android/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_b64b3637950f7748cfe5dee9f6b6bdb39a0c8d7d/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/gheerishbansoodeb/Documents/gigya-react-native-master/android/app/libs/gigya-sdk-3.3.4.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="c228cf4aa9c4fbf91d9c2a57c1d7ea66f8f6a34d">
+        <dex dex="/Users/gheerishbansoodeb/Documents/gigya-react-native-master/android/app/build/intermediates/transforms/dex/debug/folders/1000/2/gigya-sdk-3.3.4_ff03be4373d92eec2ac9134e1cdb29ecd03048a5/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/gheerishbansoodeb/.gradle/caches/modules-2/files-2.1/com.squareup.okhttp3/okhttp/3.6.0/69edde9fc4b01c9fd51d25b83428837478c27254/okhttp-3.6.0.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="69edde9fc4b01c9fd51d25b83428837478c27254">
+        <dex dex="/Users/gheerishbansoodeb/Documents/gigya-react-native-master/android/app/build/intermediates/transforms/dex/debug/folders/1000/10/okhttp-3.6.0_a9eb78297aac4adb78e10ffacba27af525b888e4/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/gheerishbansoodeb/.android/build-cache/544876a0835e3cdea0ee57f825eb30fe41dfdcae/output/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="d9c4402c3057225d80cbbbec52154e7a25b0ebdf">
+        <dex dex="/Users/gheerishbansoodeb/Documents/gigya-react-native-master/android/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_d6a29aa58752dbdec57eea9f5ed88bed6e0bfe16/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/gheerishbansoodeb/.android/build-cache/8a49bf76d33a1d281ce217c7ed8510e074236340/output/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="f90b593491e4044903f0bbf68dc3fa2790b151b9">
+        <dex dex="/Users/gheerishbansoodeb/Documents/gigya-react-native-master/android/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_9f367cc533cefe2244b8254c6cf090ec218c7efe/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/gheerishbansoodeb/Documents/gigya-react-native-master/android/app/build/intermediates/incremental-classes/debug/instant-run-bootstrap.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="a0de1a3d8d3c25cc5a9b0401d1dfb464c5fd48ee">
+        <dex dex="/Users/gheerishbansoodeb/Documents/gigya-react-native-master/android/app/build/intermediates/transforms/dex/debug/folders/1000/10000/instant-run-bootstrap_f37844c3ef6cdc624894daf7e88c62a0e35c10aa/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/gheerishbansoodeb/.android/build-cache/c096d5e8f5743116ea1db31c31a41bc3c55258de/output/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="c31e21b53ff2f74664e498248d01453a32e32d48">
+        <dex dex="/Users/gheerishbansoodeb/Documents/gigya-react-native-master/android/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_4a98eb62347fc3a281b8494251993151151561ab/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/gheerishbansoodeb/Documents/gigya-react-native-master/android/app/build/intermediates/incremental-runtime-classes/debug/instant-run.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="510aa6efc159983dfbffa676a0dae37568c0a46f">
+        <dex dex="/Users/gheerishbansoodeb/Documents/gigya-react-native-master/android/app/build/intermediates/transforms/dex/debug/folders/1000/10000/instant-run_d5d67c67b49bbfedd9057eae6f07b1f5d4c9db39/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/gheerishbansoodeb/.android/build-cache/9053381f7a2b4387070817e6ee11a272e096a58a/output/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="cf836a435a496eb22ff2aa69aa1e619462549f81">
+        <dex dex="/Users/gheerishbansoodeb/Documents/gigya-react-native-master/android/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_72e869eb90499d09c82722f90fe7ad7a08fed756/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/gheerishbansoodeb/.android/build-cache/a1ec86e6e69ccb4bbd5cfa32e9d8096cec6bf250/output/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="2668e49e4e31c7d451b76a36009b902bf44e0d70">
+        <dex dex="/Users/gheerishbansoodeb/Documents/gigya-react-native-master/android/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_4c9639269cfc2a0c5984562240cb11446c61f0b3/classes.dex" />
+    </item>
+
+</items>

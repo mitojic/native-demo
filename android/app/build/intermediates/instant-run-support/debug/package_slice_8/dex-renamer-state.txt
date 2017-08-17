@@ -1,0 +1,4 @@
+#Thu Aug 17 01:39:04 BST 2017
+base.0=/Users/gheerishbansoodeb/Documents/gigya-react-native-master/android/app/build/intermediates/transforms/dex/debug/folders/1000/5/slice_8
+renamed.0=classes.dex
+file.0=/Users/gheerishbansoodeb/Documents/gigya-react-native-master/android/app/build/intermediates/transforms/dex/debug/folders/1000/5/slice_8/classes.dex
