@@ -35,17 +35,10 @@
   UIViewController *rootViewController = [UIViewController new];
   rootViewController.view = rootView;
   self.window.rootViewController = rootViewController;
-  
-  // GIGYA: React Native Bridge - Set reference to class property
-  self.rootViewController = rootViewController;
-  
   [self.window makeKeyAndVisible];
-
-  /* GIGYA */
+ 
   [Gigya initWithAPIKey:@"3_n6HDyxNJWZ9C6j1JcQrexeRptHoiCayyzLQ0pXGd05WwXoYNaZAC83wQ2F7kCLWN" application:application launchOptions:launchOptions APIDomain:@"eu1.gigya.com"];
   
-  [Gigya setAccountsDelegate:self];
-  /* END GIGYA */
   
   return YES;
 }

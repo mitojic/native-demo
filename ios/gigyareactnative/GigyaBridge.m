@@ -2,13 +2,14 @@
 //  GigyaBridge.m
 //  gigyareactnative
 //
-//  Created by Alejandro Perez on 7/25/17.
+//  Created by Gheerish Bansooodeb on 7/25/17.
 //  Copyright © 2017 Facebook. All rights reserved.
 //
 
 #import "GigyaBridge.h"
 #import "AppDelegate.h"
 #import <GigyaSDK/Gigya.h>
+#import "UIViewController+Utils.h"
 
 @implementation GigyaBridge
 GSPluginView *pluginView;
@@ -18,7 +19,7 @@ RCT_EXPORT_MODULE();
 // Gigya React Native custom events
 - (NSArray<NSString *> *)supportedEvents
 {
-  return @[@"AccountDidLogin", @"AccountDidLogout"];
+  return @[@"AccountDidLogin", @"AccountDidLogout",@"PluginViewFiredEvent",@"PluginViewDidFailWithError"];
 }
 
 - (dispatch_queue_t)methodQueue
@@ -57,14 +58,12 @@ RCT_EXPORT_METHOD(login:(NSString *)loginId password:(NSString *)password callba
 }
 
 RCT_EXPORT_METHOD(socialLogin:(NSString *)provider callback:(RCTResponseSenderBlock)callback) {
-  AppDelegate *delegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
-
-  NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
+   NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
   [parameters setObject:@"saveProfileAndFail" forKey:@"x_conflictHandling"];
 
   [Gigya loginToProvider:provider
               parameters:parameters
-                    over:delegate.rootViewController
+                    over:[UIViewController currentViewController]
        completionHandler:^(GSUser *user, NSError *error) {
 
          if (error) {
@@ -81,6 +80,7 @@ RCT_EXPORT_METHOD(isSessionValid:(RCTResponseSenderBlock)callback) {
 
 RCT_EXPORT_METHOD(getAccountInfo:(RCTResponseSenderBlock)callback) {
   GSRequest *request = [GSRequest requestForMethod:@"accounts.getAccountInfo"];
+  
   [request sendWithResponseHandler:^(GSResponse *response, NSError *error) {
     if (!error) {
       callback(@[[NSNull null], response.JSONString]);
@@ -90,40 +90,72 @@ RCT_EXPORT_METHOD(getAccountInfo:(RCTResponseSenderBlock)callback) {
   }];
 }
 
+RCT_EXPORT_METHOD(setAccountInfo:(NSDictionary*)params callback:(RCTResponseSenderBlock)callback) {
+  GSRequest *request = [GSRequest requestForMethod:@"accounts.setAccountInfo" parameters:params];
+  [request sendWithResponseHandler:^(GSResponse *response, NSError *error) {
+    if (!error) {
+      callback(@[[NSNull null], response.JSONString]);
+    } else {
+      callback(@[error.localizedDescription, [NSNull null]]);
+    }
+  }];
+}
+
+
 RCT_EXPORT_METHOD(logout) {
   [Gigya logout];
 }
 
 //Gigya Plugin View support
-
-RCT_EXPORT_METHOD(showScreenSet:(NSString *)screensetName callback:(RCTResponseSenderBlock)callback) {
-  AppDelegate *delegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
-  NSMutableDictionary *params = [NSMutableDictionary dictionary];
-  [params setObject:screensetName forKey:@"screenSet"];
+RCT_EXPORT_METHOD(showScreenSet:(NSString *)screensetName parameters:(NSDictionary *)params callback:(RCTResponseSenderBlock)callback) {
   
-  UIView *rootView = delegate.rootViewController.view;
-  CGRect region = CGRectMake(0, 0, rootView.frame.size.width, rootView.frame.size.height);
+  //Parse params
+  NSNumber* x = [params objectForKey:@"x"];
+  NSNumber* y = [params objectForKey:@"y"];
+  NSNumber* w = [params objectForKey:@"w"];
+  NSNumber* h = [params objectForKey:@"h"];
+  
+  NSDictionary* screenSetDictionaryFromReact = [params objectForKey:@"screenSetParams"];
+  NSMutableDictionary *screenSetParams = [screenSetDictionaryFromReact mutableCopy];
+  [screenSetParams setObject:screensetName forKey:@"screenSet"];
+
+  UIView *currentView = [[[[UIApplication sharedApplication] keyWindow] subviews] lastObject].superview;
+  CGRect region = CGRectMake([x intValue],[y intValue],[w intValue],[h intValue]);
   
   pluginView = [[GSPluginView alloc] initWithFrame:region];
   pluginView.delegate = self;
   pluginView.showLoginProgress = YES;
-  [pluginView loadPlugin:@"accounts.screenSet" parameters:params];
+  [pluginView loadPlugin:@"accounts.screenSet" parameters:screenSetParams];
   
-  [delegate.rootViewController.view addSubview:pluginView];
+  [currentView addSubview:pluginView];
+  
+//  [Gigya showPluginDialogOver:[UIViewController currentViewController] plugin:@"accounts.screenSet" parameters:params
+//            completionHandler:nil delegate:self];
   callback(@[@"Plugin loaded", [NSNull null]]);
 }
 
 //Plugin Delegates
-
 - (void)pluginView:(GSPluginView *)pluginView2 firedEvent:(NSDictionary *)event
 {
-  NSLog(@"Plugin event from %@ - %@", pluginView2.plugin, [event objectForKey:@"eventName"]);
+    NSLog(@"Plugin event from %@ - %@", pluginView2.plugin, [event objectForKey:@"eventName"]);
   
-  //detect afterSubmit event of screenset - and close screen natively
-  if([pluginView2.plugin  isEqual: @"accounts.screenSet"] &&  [[event objectForKey:@"eventName"]  isEqual: @"afterSubmit"]){
-    [pluginView removeFromSuperview];
-    pluginView = nil;
-  }
+    //detect afterSubmit event of screenset - and close screen natively
+    if([pluginView2.plugin  isEqual: @"accounts.screenSet"] &&  [[event objectForKey:@"eventName"]  isEqual: @"afterSubmit"]){
+      [pluginView removeFromSuperview];
+      pluginView = nil;
+    }
+  
+    NSError *error;
+    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:event
+                                                     options:NSJSONWritingPrettyPrinted
+                                                       error:&error];
+    if (! jsonData) {
+      NSLog(@"Got an error: %@", error);
+      [self sendEventWithName:@"PluginViewFiredEvent" body:error];
+    } else {
+      NSString *jsonString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
+      [self sendEventWithName:@"PluginViewFiredEvent" body:jsonString];
+    }
 }
 
 - (void)pluginView:(GSPluginView *)pluginView finishedLoadingPluginWithEvent:(NSDictionary *)event
@@ -134,6 +166,7 @@ RCT_EXPORT_METHOD(showScreenSet:(NSString *)screensetName callback:(RCTResponseS
 - (void)pluginView:(GSPluginView *)pluginView didFailWithError:(NSError *)error
 {
   NSLog(@"Plugin error: %@", [error localizedDescription]);
+  [self sendEventWithName:@"PluginViewFiredEvent" body:[error localizedDescription]];
   [pluginView removeFromSuperview];
 }
 

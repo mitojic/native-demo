@@ -17,6 +17,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.Iterator;
+import java.util.Map;
+import java.util.HashMap;
 
 public abstract class JsonConvert {
     public static JSONObject reactToJSON(ReadableMap readableMap) throws JSONException {
@@ -129,5 +131,69 @@ public abstract class JsonConvert {
             }
         }
         return writableArray;
+    }
+
+    public static Map<String, Object> reactToMap(ReadableMap readableMap) {
+        Map<String, Object> map = new HashMap<>();
+        ReadableMapKeySetIterator iterator = readableMap.keySetIterator();
+
+        while (iterator.hasNextKey()) {
+            String key = iterator.nextKey();
+            ReadableType type = readableMap.getType(key);
+
+            switch (type) {
+                case Null:
+                    map.put(key, null);
+                    break;
+                case Boolean:
+                    map.put(key, readableMap.getBoolean(key));
+                    break;
+                case Number:
+                    map.put(key, readableMap.getDouble(key));
+                    break;
+                case String:
+                    map.put(key, readableMap.getString(key));
+                    break;
+                case Map:
+                    map.put(key, reactToMap(readableMap.getMap(key)));
+                    break;
+                case Array:
+                    map.put(key, reactToArray(readableMap.getArray(key)));
+                    break;
+            }
+        }
+
+        return map;
+    }
+
+    public static Object[] reactToArray(ReadableArray readableArray) {
+        Object[] array = new Object[readableArray.size()];
+
+        for (int i = 0; i < readableArray.size(); i++) {
+            ReadableType type = readableArray.getType(i);
+
+            switch (type) {
+                case Null:
+                    array[i] = null;
+                    break;
+                case Boolean:
+                    array[i] = readableArray.getBoolean(i);
+                    break;
+                case Number:
+                    array[i] = readableArray.getDouble(i);
+                    break;
+                case String:
+                    array[i] = readableArray.getString(i);
+                    break;
+                case Map:
+                    array[i] = reactToMap(readableArray.getMap(i));
+                    break;
+                case Array:
+                    array[i] = reactToArray(readableArray.getArray(i));
+                    break;
+            }
+        }
+
+        return array;
     }
 }

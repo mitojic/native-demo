@@ -5,12 +5,14 @@ import android.util.Log;
 import android.support.annotation.Nullable;
 
 import com.facebook.react.bridge.NativeModule;
+import com.facebook.react.bridge.ReadableMap;
 import com.facebook.react.modules.core.DeviceEventManagerModule;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
 import com.facebook.react.bridge.WritableMap;
+import com.facebook.react.bridge.ReadableMapKeySetIterator;
 import com.facebook.react.bridge.Arguments;
 import com.facebook.react.bridge.Callback;
 import com.facebook.react.module.annotations.ReactModule;
@@ -23,6 +25,8 @@ import com.gigya.socialize.android.GSAPI;
 import com.gigya.socialize.android.event.GSAccountsEventListener;
 import com.gigya.socialize.android.GSPluginFragment;
 
+import org.json.JSONException;
+import org.json.JSONObject;
 import java.util.Map;
 
 /**
@@ -153,11 +157,17 @@ public class GigyaBridge extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
-    public void showScreenSet(String screensetName, Callback callback){
+    public void showScreenSet(String screensetName, ReadableMap screensetParams, Callback callback){
         GSObject params = new GSObject();
+
+        Map<String,Object> reactMap = JsonConvert.reactToMap(screensetParams);
+        Map<String,Object> screensetMap = (Map<String,Object>)reactMap.get("screenSetParams");
+
+        for (Map.Entry<String, Object> entry : screensetMap.entrySet())
+        {
+            params.put("entry.getKey()", entry.getValue());
+        }
         params.put("screenSet", screensetName);
-
         GSAPI.getInstance().showPluginDialog("accounts.screenSet", params, null, null);
-
     }
 }

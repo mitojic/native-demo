@@ -4,6 +4,8 @@ import { NativeEventEmitter, NativeModules, StyleSheet, Text, View } from 'react
 import { Root, Spinner, Toast } from "native-base";
 import Login from './components/Login';
 import LoggedIn from './components/LoggedIn';
+import Dimensions from 'Dimensions';
+
 const Gigya = NativeModules.GigyaBridge;
 
 export default class App extends React.Component {
@@ -37,6 +39,8 @@ export default class App extends React.Component {
   }
 
   onAccountDidLogin = (account) => {
+    
+      console.log(account);
     this.setState({
       gigyaAccount: JSON.parse(account),
       isSessionValid: true,
@@ -75,11 +79,11 @@ export default class App extends React.Component {
   };
 
   showScreenSet = () => {
-    Gigya.showScreenSet('newJan-RegistrationLogin', this.onScreenSetCompleted);
+    Gigya.showScreenSet('Default-RegistrationLogin', {x:0,y:0,w:Dimensions.get('window').width,h:Dimensions.get('window').height, screenSetParams:{startScreen:"gigya-login-screen",sessionExpiration:3600}}, this.onScreenSetCompleted);
   };
 
    viewProfile = () => {
-    Gigya.showScreenSet('Default-ProfileUpdate', this.onScreenSetCompleted);
+    Gigya.showScreenSet('Default-ProfileUpdate',  {x:0,y:0,w:Dimensions.get('window').width,h:Dimensions.get('window').height,screenSetParams:{}}, this.onScreenSetCompleted);
   };
   
   socialLogin = (provider) => Gigya.socialLogin(provider, this.onSocialLoginCompleted);
