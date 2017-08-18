@@ -29,6 +29,16 @@ export default class App extends React.Component {
       this.onAccountDidLogout
     );
 
+    this.pluginViewFiredEventSubscription = this.gigyaManagerEmitter.addListener(
+      'PluginViewFiredEvent',
+      this.onPluginViewFiredEvent
+    );
+
+    this.pluginViewDidFailWithErrorSubscription = this.gigyaManagerEmitter.addListener(
+      'PluginViewDidFailWithError',
+      this.onPluginViewDidFailWithError
+    );
+
     Gigya.initBridge();
     Gigya.isSessionValid(this.onIsSessionValidCompleted);
   }
@@ -36,6 +46,8 @@ export default class App extends React.Component {
   componentWillUnmount() {
     this.accountDidLoginSubscription.remove();
     this.AccountDidLogoutSubscription.remove();
+    this.pluginViewFiredEventSubscription.remove();
+    this.this.pluginViewDidFailWithErrorSubscription.remove();
   }
 
   onAccountDidLogin = (account) => {
@@ -50,6 +62,14 @@ export default class App extends React.Component {
   onAccountDidLogout = () => {
     this.notifyUser('Logged out successfully');
     this.setState({ isSessionValid: false, gigyaAccount: null })
+  };
+
+  onPluginViewFiredEvent = (event) => {
+      console.log(event);
+  };
+
+  pluginViewDidFailWithErrorSubscription = (event) => {
+      console.log(event);
   };
 
   onIsSessionValidCompleted = (error, isValid) => {
