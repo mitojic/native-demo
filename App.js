@@ -47,7 +47,7 @@ export default class App extends React.Component {
     this.accountDidLoginSubscription.remove();
     this.AccountDidLogoutSubscription.remove();
     this.pluginViewFiredEventSubscription.remove();
-    this.this.pluginViewDidFailWithErrorSubscription.remove();
+    this.pluginViewDidFailWithErrorSubscription.remove();
   }
 
   onAccountDidLogin = (account) => {
