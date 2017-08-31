@@ -1,12 +1,10 @@
 <resources>
     <string name="app_name">Gigya RN Demo</string>
 
-    <!--
-    Values to be customised
+    <!--Values to be customised-->
     <string name="gigya_api_key">3_aGln_MuaZZzUPIvs4HDZ81Leu1kDyUdXCXbIH5DvX61wWAg30pfsiAQ4GQjNv8iM</string>
     <string name="api_domain">eu1</string>
-    -->
-    <string name="facebook_app_id">1624642011131972</string>
+    <string name="facebook_app_id">626108487583023</string>
 
 
 </resources>
