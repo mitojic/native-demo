@@ -1,0 +1,1 @@
+../../../../Gigya-iOSSDK/GigyaSDK.framework/Headers/GSRequest.h
