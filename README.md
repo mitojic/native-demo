@@ -108,7 +108,7 @@ In your React Native Android Project:
 **JavaScript**
 
 Finally, call your bridge from the React Native code: 
-```
+```jsx
 // Importing the bridge
 import { NativeEventEmitter, NativeModules } from 'react-native';
 const Gigya = NativeModules.GigyaBridge;
