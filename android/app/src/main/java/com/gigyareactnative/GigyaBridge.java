@@ -24,6 +24,7 @@ import com.gigya.socialize.GSResponseListener;
 import com.gigya.socialize.android.GSAPI;
 import com.gigya.socialize.android.event.GSAccountsEventListener;
 import com.gigya.socialize.android.GSPluginFragment;
+import com.gigya.socialize.android.event.GSPluginListener;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -77,7 +78,7 @@ public class GigyaBridge extends ReactContextBaseJavaModule {
         if(GSAPI.getInstance().getSession() != null){
             isValid = GSAPI.getInstance().getSession().isValid();
         }
-        callback.invoke(isValid);
+        callback.invoke(null, isValid);
     }
 
     @ReactMethod
@@ -105,6 +106,89 @@ public class GigyaBridge extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
+    public void resetPassword(String emailAddress, final Callback callback) {
+        GSObject params = new GSObject();
+        params.put("loginID", emailAddress);
+        params.put("email",emailAddress);
+
+        GSResponseListener resListener = new GSResponseListener() {
+            @Override
+            public void onGSResponse(String method, GSResponse response, Object context) {
+                try {
+                    if (response.getErrorCode()!=0) {
+                        callback.invoke(response.getErrorMessage());
+                    } else {
+                        callback.invoke(null, response.getData().toJsonString());
+                    }
+                }
+                catch (Exception ex) {
+                    callback.invoke(ex.getLocalizedMessage());
+                }
+            }
+        };
+
+        String methodName = "accounts.resetPassword";
+        GSAPI.getInstance().sendRequest(methodName, params, resListener, null);
+    }
+
+    @ReactMethod
+    public void registerFlow(final String firstName, final String lastName, final String email, final String password, final String tnc, final Callback callback) {
+        GSResponseListener resListener = new GSResponseListener() {
+            @Override
+            public void onGSResponse(String method, GSResponse response, Object context) {
+                try {
+                    if (response.getErrorCode()==0) {
+                        String regToken = response.getData().getString("regToken");
+
+                        // Step 1 - Defining request parameters
+                        GSObject params = new GSObject();
+                        params.put("regToken", regToken);
+                        params.put("email", email);
+                        params.put("password", password);
+                        params.put("finalizeRegistration", true);
+
+                        GSObject profile = new GSObject();
+                        profile.put("firstName", firstName);
+                        profile.put("lastName", lastName);
+                        params.put("profile", profile);
+
+                        GSObject data = new GSObject();
+                        data.put("terms", tnc);
+                        params.put("data", data);
+
+                        // Step 2 - Defining response listener. The response listener will handle the request's response.
+                        GSResponseListener resListener = new GSResponseListener() {
+                            @Override
+                            public void onGSResponse(String method, GSResponse response, Object context) {
+                                try {
+                                    if (response.getErrorCode()==0) {
+                                        callback.invoke(null, response.getData().toJsonString());
+                                    } else {
+                                        callback.invoke(response.getErrorMessage());
+                                    }
+                                }
+                                catch (Exception ex) {  ex.printStackTrace();  }
+                            }
+                        };
+
+                        // Step 3 - Sending the request
+                        String methodName = "accounts.register";
+                        GSAPI.getInstance().sendRequest(methodName, params, resListener, null);
+
+                    } else {
+                        callback.invoke(response.getErrorMessage());
+                    }
+                }
+                catch (Exception ex) {  ex.printStackTrace();  }
+            }
+        };
+
+        // Step 3 - Sending the request
+        String methodName = "accounts.initRegistration";
+        GSAPI.getInstance().sendRequest(methodName, null, resListener, null);
+    }
+
+    @ReactMethod
     public void getAccountInfo(final Callback callback){
         GSResponseListener resListener = new GSResponseListener() {
             @Override
@@ -112,6 +196,8 @@ public class GigyaBridge extends ReactContextBaseJavaModule {
                 try {
                     if (response.getErrorCode()!=0) {
                         callback.invoke(response.getData().toJsonString());
+                    } else {
+                        callback.invoke(null, response.getData().toJsonString());
                     }
                 }
                 catch (Exception ex) {
@@ -157,7 +243,7 @@ public class GigyaBridge extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
-    public void showScreenSet(String screensetName, ReadableMap screensetParams, Callback callback){
+    public void showScreenSet(String screensetName, ReadableMap screensetParams, final Callback callback){
         GSObject params = new GSObject();
 
         Map<String,Object> reactMap = JsonConvert.reactToMap(screensetParams);
@@ -168,6 +254,49 @@ public class GigyaBridge extends ReactContextBaseJavaModule {
             params.put("entry.getKey()", entry.getValue());
         }
         params.put("screenSet", screensetName);
-        GSAPI.getInstance().showPluginDialog("accounts.screenSet", params, null, null);
+
+        GSAPI.getInstance().showPluginDialog("accounts.screenSet", params, new GSPluginListener() {
+            @Override
+            public void onLoad(GSPluginFragment gsPluginFragment, GSObject gsObject) {
+                callback.invoke(null, "Plugin loaded");
+            }
+
+            @Override
+            public void onError(GSPluginFragment gsPluginFragment, GSObject error) {
+                callback.invoke(error.toJsonString());
+            }
+
+            @Override
+            public void onEvent(GSPluginFragment gsPluginFragment, GSObject gsObject) {
+            }
+        }, null);
+    }
+
+    @ReactMethod
+    public void showComments(String categoryID, String streamID, ReadableMap dimensions, final Callback callback){
+        GSObject params = new GSObject();
+        params.put("categoryID", categoryID);
+        params.put("streamID", streamID);
+        params.put("version", 2);
+
+        GSAPI.getInstance().showPluginDialog("comments.commentsUI", params, new GSPluginListener() {
+            @Override
+            public void onLoad(GSPluginFragment gsPluginFragment, GSObject gsObject) {
+                callback.invoke(null, "Plugin loaded");
+            }
+
+            @Override
+            public void onError(GSPluginFragment gsPluginFragment, GSObject error) {
+                callback.invoke(error.toJsonString());
+            }
+
+            @Override
+            public void onEvent(GSPluginFragment gsPluginFragment, GSObject gsObject) {
+            }
+        }, null);
+    }
+
+    @ReactMethod
+    public void hidePluginView(){
     }
 }

@@ -1,19 +1,18 @@
 import React from 'react';
-// NativeEventEmitter, NativeModules
 import { NativeEventEmitter, NativeModules, StyleSheet, Text, View } from 'react-native';
-import { Root, Spinner, Toast } from "native-base";
-import Login from './components/Login';
-import LoggedIn from './components/LoggedIn';
-import Dimensions from 'Dimensions';
+import { Root, Toast } from "native-base";
+import { createRootNavigator } from "./Router";
+import Spinner from "./components/Spinner";
 
 const Gigya = NativeModules.GigyaBridge;
 
-export default class App extends React.Component {
+class App extends React.Component {
   constructor() {
     super();
     this.state = {
       gigyaAccount: null,
       isSessionValid: null,
+      isLoading: true,
     };
     this.gigyaManagerEmitter =  new NativeEventEmitter(Gigya);
   }
@@ -51,30 +50,35 @@ export default class App extends React.Component {
   }
 
   onAccountDidLogin = (account) => {
-    
-      console.log(account);
     this.setState({
       gigyaAccount: JSON.parse(account),
       isSessionValid: true,
+      isLoading: false,
     });
   };
 
   onAccountDidLogout = () => {
+    Gigya.hidePluginView();
     this.notifyUser('Logged out successfully');
-    this.setState({ isSessionValid: false, gigyaAccount: null })
+    this.setState({
+      isSessionValid: false,
+      gigyaAccount: null,
+      isLoading: false,
+    });
   };
 
   onPluginViewFiredEvent = (event) => {
-      console.log(event);
+    console.log(event);
   };
 
   pluginViewDidFailWithErrorSubscription = (event) => {
-      console.log(event);
+    console.log(event);
+    this.loading(true);
   };
 
   onIsSessionValidCompleted = (error, isValid) => {
     if(!isValid) {
-      this.setState({ isSessionValid: false });
+      this.setState({ isSessionValid: false, isLoading: false });
     } else {
       Gigya.getAccountInfo(this.onGetAccountInfoCompleted);
     }
@@ -85,78 +89,50 @@ export default class App extends React.Component {
       this.setState({
         gigyaAccount: JSON.parse(account),
         isSessionValid: true,
+        isLoading: false,
       });
+    } else {
+      this.loading(true);
     }
   };
-
-  login = (loginId, password) => {
-    if (!loginId || !password) {
-      this.notifyUser('Please provide username and password');
-      return;
-    };
-
-    Gigya.login(loginId, password, this.onLoginCompleted);
-  };
-
-  showScreenSet = () => {
-    Gigya.showScreenSet('Default-RegistrationLogin', {x:0,y:0,w:Dimensions.get('window').width,h:Dimensions.get('window').height, screenSetParams:{startScreen:"gigya-login-screen",sessionExpiration:3600}}, this.onScreenSetCompleted);
-  };
-
-   viewProfile = () => {
-    Gigya.showScreenSet('Default-ProfileUpdate',  {x:0,y:0,w:Dimensions.get('window').width,h:Dimensions.get('window').height,screenSetParams:{}}, this.onScreenSetCompleted);
-  };
-  
-  socialLogin = (provider) => Gigya.socialLogin(provider, this.onSocialLoginCompleted);
-
-  onLoginCompleted = (error) => {
-    if (error) {
-      this.notifyUser(error);
-    }
-  };
-
-  onScreenSetCompleted = (error) => {
-      this.notifyUser(error);
-  };
-
-  onSocialLoginCompleted = (error) => this.checkErrors(error);
-
-  logout = () => Gigya.logout();
 
   checkErrors = (error) => {
     if (!error) return;
     this.notifyUser(error);
   };
 
-  notifyUser = (msg) => Toast.show({
-    text: msg,
-    position: 'bottom',
-    buttonText: 'Dismiss',
-    duration: 2000,
-  });
+  notifyUser = (msg) => {
+    this.loading(true);
+    Toast.show({
+      text: msg,
+      position: 'bottom',
+      buttonText: 'Dismiss',
+      duration: 2000,
+    });
+  };
+
+  loading = (loaded) => {
+    this.setState({ isLoading: !loaded })
+  };
 
   render() {
-    const { gigyaAccount, isSessionValid } = this.state;
+    const { gigyaAccount, isSessionValid, isLoading } = this.state;
+    if (isSessionValid===null) return <Spinner />;
 
-    if (isSessionValid===null) return <Spinner color='blue' />;
-
-    let rootChildren = isSessionValid
-      ? (<LoggedIn
-          account={gigyaAccount}
-          onLogout={this.logout}
-          onViewProfilePressed={this.viewProfile}
-        />)
-      : (<Login
-          onSocialLoginPressed={this.socialLogin}
-          onLoginPressed={this.login}
-          onScreensetPressed={this.showScreenSet}
-        />);
-
-    return(
-      <Root>
-        { rootChildren }
+    const Layout = createRootNavigator(isSessionValid);
+    return (
+      <Root>        
+        <Layout screenProps={{
+          account: gigyaAccount,
+          signedIn: isSessionValid,
+          gigya: Gigya,
+          notifyUser: this.notifyUser,
+          loading: this.loading,
+        }} />
+        { isLoading && <Spinner /> }
       </Root>
     );
-
   }
 }
 
+export default App;

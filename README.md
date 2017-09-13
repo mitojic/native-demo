@@ -14,6 +14,16 @@
 
 This is a simple demo to illustrate [Gigya](http://www.gigya.com) Integration with React Native. Integration is done via [Native Modules](https://facebook.github.io/react-native/docs/native-modules-ios.html). The idea is to create a React RCTBridgeModule for Gigya's available Mobile SDKs (iOS and Android), and use this bridge to communicate between React Native (JS) and Native (SDKs).
 
+Currently, this demo includes sample flows in iOS and Android for:
+* Native site (Email/Password) login
+* Native site (Email/Password) registration
+* Login/Registration via Screen-Sets
+* Native password reset
+* Social Login w/ Facebook, Google and Twitter
+* Update Profile via Screen-Sets
+* Comments via `comments.commentsUI`
+* Logout
+
 <a name="requirements"></a>
 ## Requirements
 

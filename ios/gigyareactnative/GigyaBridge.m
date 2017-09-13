@@ -12,7 +12,8 @@
 #import "UIViewController+Utils.h"
 
 @implementation GigyaBridge
-GSPluginView *pluginView;
+GSPluginView *pluginView, *commentView;
+bool pluginShowing;
 
 RCT_EXPORT_MODULE();
 
@@ -101,9 +102,125 @@ RCT_EXPORT_METHOD(setAccountInfo:(NSDictionary*)params callback:(RCTResponseSend
   }];
 }
 
-
 RCT_EXPORT_METHOD(logout) {
   [Gigya logout];
+}
+
+RCT_EXPORT_METHOD(resetPassword:(NSString *)emailAddress callback:(RCTResponseSenderBlock)callback) {
+  NSMutableDictionary *userAction = [NSMutableDictionary dictionary];
+  [userAction setObject:emailAddress forKey:@"loginID"];
+  [userAction setObject:emailAddress forKey:@"email"];
+  
+  GSRequest *request = [GSRequest requestForMethod:@"accounts.resetPassword" parameters:userAction];
+  [request sendWithResponseHandler:^(GSResponse *response, NSError *error) {
+    if (!error) {
+      callback(@[[NSNull null], response.JSONString]);
+    } else {
+      callback(@[error.localizedDescription, [NSNull null]]);
+    }
+  }];
+}
+
+RCT_EXPORT_METHOD(registerFlow:(NSString *)firstName lastName:(NSString *)lastName email:(NSString *)email password:(NSString *)password tnc:(NSString *)tnc callback:(RCTResponseSenderBlock)callback) {
+  GSRequest *request = [GSRequest requestForMethod:@"accounts.initRegistration" parameters:nil];
+  [request sendWithResponseHandler:^(GSResponse *response, NSError *error) {
+    if (!error) {
+      NSString *regToken = response[@"regToken"];
+
+      NSMutableDictionary *userAction = [NSMutableDictionary dictionary];
+      [userAction setObject:email forKey:@"email"];
+      [userAction setObject:password forKey:@"password"];
+      [userAction setObject:regToken forKey:@"regToken"];
+      
+      
+      GSRequest *request = [GSRequest requestForMethod:@"accounts.register" parameters:userAction];
+      [request sendWithResponseHandler:^(GSResponse *response, NSError *error) {
+        if (error.code == GSErrorAccountPendingRegistration) {
+          
+          //Get new regToken from response as an error was thrown
+          NSString *regToken2 = response[@"regToken"];
+          
+          NSString *profileData = [NSString stringWithFormat: @"{ 'firstName' : '%@' , 'lastName' : '%@' }", firstName, lastName];
+          NSString *dataData = [NSString stringWithFormat: @"{ 'terms' : '%@' }", tnc] ;
+          
+          NSMutableDictionary *userAction2 = [NSMutableDictionary dictionary];
+          [userAction2 setObject:profileData forKey:@"profile"];
+          [userAction2 setObject:dataData forKey:@"data"];
+          [userAction2 setObject:regToken2 forKey:@"regToken"];
+          
+          GSRequest *request = [GSRequest requestForMethod:@"accounts.setAccountInfo" parameters:userAction2];
+          [request sendWithResponseHandler:^(GSResponse *response, NSError *error) {
+            if (!error) {
+              
+              NSMutableDictionary *userAction3 = [NSMutableDictionary dictionary];
+              [userAction3 setObject:regToken2 forKey:@"regToken"];
+              
+              GSRequest *request = [GSRequest requestForMethod:@"accounts.finalizeRegistration" parameters:userAction3];
+              [request sendWithResponseHandler:^(GSResponse *response, NSError *error) {
+                if (!error) {
+                  
+                  //Login the user
+                  NSMutableDictionary *userAction4 = [NSMutableDictionary dictionary];
+                  [userAction4 setObject:email forKey:@"loginID"];
+                  [userAction4 setObject:password forKey:@"password"];
+                  
+                  GSRequest *request = [GSRequest requestForMethod:@"accounts.login" parameters:userAction4];
+                  [request sendWithResponseHandler:^(GSResponse *response, NSError *error) {
+                    if (error) {
+                      callback(@[error.localizedDescription, [NSNull null]]);
+                    }
+                  }];
+                }
+                else {
+                  callback(@[error.localizedDescription, [NSNull null]]);
+                }
+              }];
+            }
+            else {
+              callback(@[error.localizedDescription, [NSNull null]]);
+            }
+          }];
+        }
+        else {
+          callback(@[error.localizedDescription, [NSNull null]]);
+        }
+      }];
+    }
+    else {
+      callback(@[error.localizedDescription, [NSNull null]]);
+    }
+  }];
+}
+
+RCT_EXPORT_METHOD(showComments:(NSString *)categoryID streamID:(NSString *)streamID dimensions:(NSDictionary *)dimensions callback:(RCTResponseSenderBlock)callback) {
+    
+    //Parse params
+    NSNumber* x = [dimensions objectForKey:@"x"];
+    NSNumber* y = [dimensions objectForKey:@"y"];
+    NSNumber* w = [dimensions objectForKey:@"w"];
+    NSNumber* h = [dimensions objectForKey:@"h"];
+
+    UIView *currentView = [[[[UIApplication sharedApplication] keyWindow] subviews] lastObject].superview;
+    CGRect region = CGRectMake([x intValue],[y intValue],[w intValue],[h intValue]);
+  
+    NSInteger version = 2;
+    NSMutableDictionary *pluginParams = [NSMutableDictionary dictionary];
+    [pluginParams setObject:categoryID forKey:@"categoryID"];
+    [pluginParams setObject:streamID forKey:@"streamID"];
+    [pluginParams setObject:[NSNumber numberWithInteger:version] forKey:@"version"];
+    pluginView = [[GSPluginView alloc] initWithFrame:region];
+    pluginView.delegate = self;
+    [pluginView loadPlugin:@"comments.commentsUI" parameters:pluginParams];
+  
+    [currentView addSubview:pluginView];
+    pluginShowing = YES;
+    callback(@[[NSNull null], @"Plugin loaded"]);
+}
+
+RCT_EXPORT_METHOD(hidePluginView) {
+  if(pluginShowing){
+    [pluginView removeFromSuperview];
+  }
 }
 
 //Gigya Plugin View support
@@ -131,7 +248,7 @@ RCT_EXPORT_METHOD(showScreenSet:(NSString *)screensetName parameters:(NSDictiona
   
 //  [Gigya showPluginDialogOver:[UIViewController currentViewController] plugin:@"accounts.screenSet" parameters:params
 //            completionHandler:nil delegate:self];
-  callback(@[@"Plugin loaded", [NSNull null]]);
+  callback(@[[NSNull null], @"Plugin loaded"]);
 }
 
 //Plugin Delegates
